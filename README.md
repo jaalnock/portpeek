@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/portpeek.svg)](https://www.npmjs.com/package/portpeek)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20macOS-blue)](https://github.com/jaalnock/portpeek)
 
 A robust cross-platform command-line utility for efficient network port management and inspection. Seamlessly works across Windows, Linux, and macOS environments.
 
@@ -12,6 +13,7 @@ A robust cross-platform command-line utility for efficient network port manageme
 - Discover available ports for your applications
 - Terminate processes occupying specific ports
 - Display detailed process information
+- List all busy ports with process details
 - Watch port status in real-time
 - Export results in JSON format for programmatic use
 
@@ -29,22 +31,37 @@ portpeek [command] [options]
 
 ### Core Commands
 
-Command | Description
-------- | -----------
-`portpeek <port>` | Check if a single port is in use
-`portpeek <port1> <port2> ...` | Check the status of multiple ports
-`portpeek suggest <port> [count]` | Suggest `count` free ports starting from `port`
-`portpeek kill <port>` | Terminate the process using the specified port
-`portpeek info <port>` | Display detailed information about the process using the port
-`portpeek --help` | Show comprehensive help information
+**`portpeek <port>`**  
+Check if a single port is in use
+
+**`portpeek <port1> <port2> ...`**  
+Check the status of multiple ports
+
+**`portpeek suggest <port> [count]`**  
+Suggest `count` free ports starting from `port`
+
+**`portpeek kill <port>`**  
+Terminate the process using the specified port
+
+**`portpeek info <port>`**  
+Display detailed information about the process using the port
+
+**`portpeek list`**  
+List all busy ports with process names and PIDs, sorted by port number
+
+**`portpeek --help`**  
+Show comprehensive help information
 
 ### Options
 
-Option | Description
------- | -----------
-`--json` | Format output as JSON for scripting and automation
-`--watch` | Monitor port status with automatic refresh every 3 seconds
-`--log <file>` | Save command output to the specified log file
+**`--json`**  
+Format output as JSON for scripting and automation
+
+**`--watch`**  
+Monitor port status with automatic refresh every 3 seconds
+
+**`--log <file>`**  
+Save command output to the specified log file
 
 ## Examples
 
@@ -78,6 +95,18 @@ portpeek kill 8080
 portpeek info 8080
 ```
 
+### List All Busy Ports
+
+```bash
+portpeek list
+```
+
+### List Busy Ports in JSON Format
+
+```bash
+portpeek list --json
+```
+
 ### JSON Output for Scripting
 
 ```bash
@@ -98,11 +127,14 @@ portpeek 8080 --log output.log
 
 ## Troubleshooting
 
-Issue | Resolution
------ | ----------
-Permission denied | On Linux/macOS, some operations require elevated privileges. Try using `sudo` when necessary.
-Windows `netstat` errors | Verify that `netstat` is available in your system PATH. It's included in Windows by default.
-Missing process information | Ensure the target process is still running and you have sufficient permissions to access its details.
+**Permission denied**  
+On Linux/macOS, some operations require elevated privileges. Try using `sudo` when necessary.
+
+**Windows `netstat` errors**  
+Verify that `netstat` is available in your system PATH. It's included in Windows by default.
+
+**Missing process information**  
+Ensure the target process is still running and you have sufficient permissions to access its details.
 
 ## Platform Support
 
@@ -125,4 +157,3 @@ Developed with ❤️ by **jaalnock**
 • [Support this project](https://github.com/jaalnock) 
 • [Report an issue](https://github.com/jaalnock/portpeek/issues)
 • [Contact me](mailto:your-email@example.com)
-
