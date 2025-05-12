@@ -1,6 +1,6 @@
 {
     "name": "portpeek",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A cross-platform CLI tool to manage and inspect network ports",
     "main": "bin/portpeek.js",
     "bin": {
