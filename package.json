@@ -1,0 +1,37 @@
+{
+    "name": "portpeek",
+    "version": "1.0.0",
+    "description": "A cross-platform CLI tool to manage and inspect network ports",
+    "main": "bin/portpeek.js",
+    "bin": {
+      "portpeek": "bin/portpeek.js"
+    },
+    "scripts": {
+      "start": "node bin/portpeek.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+      "chalk": "^4.1.2",
+      "commander": "^9.4.1",
+      "inquirer": "^8.2.5",
+      "ps-list": "^8.1.1"
+    },
+    "author": "Sahil Katkamwar <sahilkatkamwar77@gmail.com>",
+    "license": "MIT",
+    "keywords": [
+      "port",
+      "network",
+      "cli",
+      "portpeek",
+      "process",
+      "kill-port"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jaalnock/portpeek.git"
+    },
+    "bugs": {
+      "url": "https://github.com/jaalnock/portpeek/issues"
+    },
+    "homepage": "https://github.com/jaalnock/portpeek#readme"
+  }
