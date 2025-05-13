@@ -26,103 +26,227 @@ npm install -g portpeek
 ## Usage
 
 ```bash
-portpeek [command] [options]
+portpeek [command] [ports...] [options]
 ```
 
-### Core Commands
+Run `portpeek --help` for a detailed list of commands and options.
 
-**`portpeek <port>`**  
-Check if a single port is in use
+## Core Commands
 
-**`portpeek <port1> <port2> ...`**  
-Check the status of multiple ports
+- **`portpeek <port>`**  
+  Checks if a single port is in use.  
+  ```bash
+  portpeek 8080
+  ```
 
-**`portpeek suggest <port> [count]`**  
-Suggest `count` free ports starting from `port`
+- **`portpeek <port1> <port2> ...`**  
+  Checks the status of multiple ports.  
+  ```bash
+  portpeek 8080 3000 5432
+  ```
 
-**`portpeek kill <port>`**  
-Terminate the process using the specified port
+- **`portpeek suggest <port> [count]`**  
+  Suggests `count` free ports starting from `port` (default: 4).  
+  ```bash
+  portpeek suggest 8000 5
+  ```
 
-**`portpeek info <port>`**  
-Display detailed information about the process using the port
+- **`portpeek kill <port>`**  
+  Terminates the process using the specified port.  
+  ```bash
+  portpeek kill 8080
+  ```
 
-**`portpeek list`**  
-List all busy ports with process names and PIDs, sorted by port number
+- **`portpeek info <port>`**  
+  Displays detailed information about the process using the port.  
+  ```bash
+  portpeek info 8080
+  ```
 
-**`portpeek --help`**  
-Show comprehensive help information
+- **`portpeek list`**  
+  Lists all busy ports with process names and PIDs, sorted by port number.  
+  ```bash
+  portpeek list
+  ```
 
-### Options
+## Options
 
-**`--json`**  
-Format output as JSON for scripting and automation
+- **`-j, --json`**  
+  Outputs results in colored JSON format, ideal for scripting and automation.  
+  ```bash
+  portpeek 8080 --json
+  ```
 
-**`--watch`**  
-Monitor port status with automatic refresh every 3 seconds
+- **`-l, --log [file]`**  
+  Saves command output to a log file (defaults to `portpeek.log` in the current directory).  
+  ```bash
+  portpeek 8080 --log
+  portpeek 8080 --log custom.log
+  ```
 
-**`--log <file>`**  
-Save command output to the specified log file
+- **`-w, --watch`**  
+  Monitors port status with updates every 3 seconds.  
+  ```bash
+  portpeek 8080 --watch
+  ```
 
 ## Examples
 
 ### Basic Port Check
+Check if port 8080 is in use.
 
 ```bash
 portpeek 8080
 ```
 
-### Check Multiple Ports
-
-```bash
-portpeek 8080 3000 5432
+**Output**:
+```
+Port Status:
+  Port 8080 is free
 ```
 
-### Find Available Ports
+### Check Multiple Ports with Logging
+Check the status of multiple ports and log the output.
 
 ```bash
-portpeek suggest 8000 5
+portpeek 8080 3000 5432 --log
+```
+
+**Output**:
+```
+Port Status:
+  Port 8080 is free
+Port Status:
+  Port 3000 is free
+Port Status:
+  Port 5432 is in use by postgres.exe (PID 6304)
+```
+
+**Log File** (`portpeek.log`):
+```
+2025-05-14T00:00:00.000Z - Port Status:
+2025-05-14T00:00:00.000Z -   Port 8080 is free
+2025-05-14T00:00:00.000Z - Port Status:
+2025-05-14T00:00:00.000Z -   Port 3000 is free
+2025-05-14T00:00:00.000Z - Port Status:
+2025-05-14T00:00:00.000Z -   Port 5432 is in use by postgres.exe (PID 6304)
+```
+
+### Find Available Ports in JSON
+Suggest five free ports starting from 8000 in JSON format.
+
+```bash
+portpeek suggest 8000 5 --json
+```
+
+**Output**:
+```json
+{
+  "status": "free",
+  "ports": [
+    8000,
+    8001,
+    8002,
+    8003,
+    8004
+  ]
+}
 ```
 
 ### Terminate Process Using a Port
+Attempt to kill the process on port 8080 and log the result.
 
 ```bash
-portpeek kill 8080
+portpeek kill 8080 --log custom.log
+```
+
+**Output**:
+```
+Port Status:
+  Error: Port is not in use or no process found
+```
+
+**Log File** (`custom.log`):
+```
+2025-05-14T00:00:00.000Z - Port Status:
+2025-05-14T00:00:00.000Z -   Error: Port is not in use or no process found
 ```
 
 ### View Detailed Process Information
+Get detailed info about the process using port 5432.
 
 ```bash
-portpeek info 8080
+portpeek info 5432
+```
+
+**Output**:
+```
+Port Info:
+  Name: postgres.exe
+  PID: 6304
+  Memory: 25.3 MB
+  Command: postgres -D /var/lib/pgsql/data
 ```
 
 ### List All Busy Ports
+List all ports currently in use.
 
 ```bash
 portpeek list
 ```
 
-### List Busy Ports in JSON Format
-
-```bash
-portpeek list --json
+**Output**:
+```
+Active Ports:
+  Port 135 is in use by svchost.exe (PID 1516)
+  Port 139 is in use by System (PID 4)
+  ...
 ```
 
-### JSON Output for Scripting
+### List Busy Ports in JSON with Logging
+List busy ports in JSON format and save to the default log file.
 
 ```bash
-portpeek 8080 --json
+portpeek list --json --log
+```
+
+**Output**:
+```json
+[
+  {
+    "port": 135,
+    "status": "in-use",
+    "pid": "1516",
+    "processName": "svchost.exe"
+  },
+  ...
+]
+```
+
+**Log File** (`portpeek.log`):
+```
+2025-05-14T00:00:00.000Z - [
+2025-05-14T00:00:00.000Z -   {
+2025-05-14T00:00:00.000Z -     "port": 135,
+2025-05-14T00:00:00.000Z -     "status": "in-use",
+2025-05-14T00:00:00.000Z -     "pid": "1516",
+2025-05-14T00:00:00.000Z -     "processName": "svchost.exe"
+2025-05-14T00:00:00.000Z -   },
+2025-05-14T00:00:00.000Z -   ...
+2025-05-14T00:00:00.000Z - ]
 ```
 
 ### Real-time Port Monitoring
+Monitor port 8080 with real-time updates.
 
 ```bash
 portpeek 8080 --watch
 ```
 
-### Log Results to File
-
-```bash
-portpeek 8080 --log output.log
+**Output** (updates every 3 seconds):
+```
+Port Status:
+  Port 8080 is free
 ```
 
 ## Troubleshooting
@@ -154,6 +278,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Developed with ❤️ by **jaalnock**
 
-• [Support this project](https://github.com/jaalnock) 
-• [Report an issue](https://github.com/jaalnock/portpeek/issues)
+• [Support this project](https://github.com/jaalnock)  
+• [Report an issue](https://github.com/jaalnock/portpeek/issues)  
 • [Contact me](mailto:your-email@example.com)
