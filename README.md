@@ -2,7 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/portpeek.svg)](https://www.npmjs.com/package/portpeek)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Downloads](https://img.shields.io/npm/dt/portpeek.svg?style=flat&label=downloads)](https://www.npmjs.com/package/portpeek)
 [![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20macOS-blue)](https://github.com/jaalnock/portpeek)
+
 
 A robust cross-platform command-line utility for efficient network port management and inspection. Seamlessly works across Windows, Linux, and macOS environments.
 
