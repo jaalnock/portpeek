@@ -18,7 +18,7 @@ const sharedOptions = [
 program
   .name("portpeek")
   .description("A CLI tool to manage and inspect network ports")
-  .version('1.2.0');
+  .version('1.2.1');
 
 // Apply global options
 sharedOptions.forEach(([option, description]) => {
