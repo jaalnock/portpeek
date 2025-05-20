@@ -1,7 +1,8 @@
 {
     "name": "portpeek",
-    "version": "1.1.3",
+    "version": "1.2.0",
     "description": "A cross-platform CLI tool to manage and inspect network ports",
+    "type": "module",
     "main": "bin/portpeek.js",
     "bin": {
         "portpeek": "bin/portpeek.js"
@@ -11,9 +12,9 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-        "chalk": "^4.1.2",
-        "commander": "^9.4.1",
-        "inquirer": "^8.2.5",
+        "chalk": "^5.3.0",
+        "commander": "^14.0.0",
+        "inquirer": "^12.2.0",
         "ps-list": "^8.1.1"
     },
     "author": "Sahil Katkamwar <sahilkatkamwar77@gmail.com>",

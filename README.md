@@ -5,25 +5,41 @@
 [![Downloads](https://img.shields.io/npm/dt/portpeek.svg?style=flat&label=downloads)](https://www.npmjs.com/package/portpeek)
 [![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20macOS-blue)](https://github.com/jaalnock/portpeek)
 
+---
 
-A robust cross-platform command-line utility for efficient network port management and inspection. Seamlessly works across Windows, Linux, and macOS environments.
+## Why Choose Port Peek?
+
+Port Peek is a fast, cross-platform CLI tool that helps developers and sysadmins inspect ports, resolve conflicts, and manage processes with ease. It’s ideal for troubleshooting, monitoring, and automation—right from your terminal.
+
+---
 
 ## Features
 
-- Check port status and identify processes using specific ports
-- Monitor multiple ports simultaneously
-- Discover available ports for your applications
-- Terminate processes occupying specific ports
-- Display detailed process information
-- List all busy ports with process details
-- Watch port status in real-time
-- Export results in JSON format for programmatic use
+- Instantly check port availability and identify processes occupying ports  
+- Monitor multiple ports simultaneously with real-time updates  
+- Discover free ports to streamline application setup  
+- Terminate processes using specified ports safely and efficiently  
+- Access detailed information about processes bound to ports  
+- List all active ports with corresponding process details in a sorted view  
+- Watch port status live with periodic automatic refreshes  
+- Export output in beautifully formatted JSON for easy integration and automation  
+
+---
+
 
 ## Installation
 
+To install globally, run:  
 ```bash
 npm install -g portpeek
 ```
+
+Or run instantly without installing:  
+```bash
+npx portpeek <command> [options]
+```
+
+---
 
 ## Usage
 
@@ -33,7 +49,9 @@ portpeek [command] [ports...] [options]
 
 Run `portpeek --help` for a detailed list of commands and options.
 
-## Core Commands
+---
+
+## Common Commands
 
 - **`portpeek <port>`**  
   Checks if a single port is in use.  
@@ -282,4 +300,4 @@ Developed with ❤️ by **jaalnock**
 
 • [Support this project](https://github.com/jaalnock)  
 • [Report an issue](https://github.com/jaalnock/portpeek/issues)  
-• [Contact me](mailto:your-email@example.com)
+• [Contact me](mailto:sahilkatkamwar77@gmail.com)

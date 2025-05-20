@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-const { program } = require('commander');
-const { checkPort } = require('../lib/checkPort');
-const { killPort } = require('../lib/killPort');
-const { suggestPorts } = require('../lib/suggestPorts');
-const { showInfo } = require('../lib/showInfo');
-const { outputResult } = require('../lib/utils');
-const { watchPort } = require('../lib/watchPort');
-const { listPorts } = require('../lib/listPorts');
-const pkg = require('../package.json');
+import { program } from 'commander';
+import { checkPort } from '../lib/checkPort.js';
+import { killPort } from '../lib/killPort.js';
+import { suggestPorts } from '../lib/suggestPorts.js';
+import { showInfo } from '../lib/showInfo.js';
+import { outputResult } from '../lib/utils.js';
+import { watchPort } from '../lib/watchPort.js';
+import { listPorts } from '../lib/listPorts.js';
+
 
 // Define shared options
 const sharedOptions = [
@@ -18,7 +18,7 @@ const sharedOptions = [
 program
   .name("portpeek")
   .description("A CLI tool to manage and inspect network ports")
-  .version(pkg.version);
+  .version('1.2.0');
 
 // Apply global options
 sharedOptions.forEach(([option, description]) => {
@@ -32,6 +32,7 @@ program
     if (ports.length === 0) {
       program.help();
     }
+
     for (const port of ports) {
       const result = await checkPort(port);
       if (options.watch || program.opts().watch) {
@@ -45,10 +46,11 @@ program
 program
   .command('suggest')
   .description('Suggest free ports starting from given port')
-  .arguments('<port> [count]')
+  .argument('<port>')
+  .argument('[count]', 'Number of suggestions', '4')
   .option('-j, --json', 'Output in JSON format')
   .option('-l, --log [file]', 'Log output to a file (default: portpeek.log)')
-  .action(async function (port, count = 4) {
+  .action(async function (port, count) {
     const options = { ...program.opts(), ...this.opts() };
     const result = await suggestPorts(port, parseInt(count));
     if (result.status === 'success') {
@@ -60,7 +62,7 @@ program
 program
   .command('kill')
   .description('Kill the process using the port')
-  .arguments('<port>')
+  .argument('<port>')
   .option('-j, --json', 'Output in JSON format')
   .option('-l, --log [file]', 'Log output to a file (default: portpeek.log)')
   .action(async function (port) {
@@ -72,7 +74,7 @@ program
 program
   .command('info')
   .description('Show detailed process info for the port')
-  .arguments('<port>')
+  .argument('<port>')
   .option('-j, --json', 'Output in JSON format')
   .option('-l, --log [file]', 'Log output to a file (default: portpeek.log)')
   .action(async function (port) {
